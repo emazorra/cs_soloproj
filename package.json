@@ -1,8 +1,7 @@
 {
   "name": "solo-project",
   "version": "1.0.0",
-  "description": "",
-  "main": "",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server/server.js",
@@ -25,5 +24,6 @@
     "style-loader": "^3.3.4",
     "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4"
-  }
+  },
+  "description": ""
 }
