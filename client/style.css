@@ -1,11 +1,11 @@
 .page-login .background-color {
     background-image: none;
-    background-color: #efefef;
+    background-color: #7979d5;
 }
 
 .page-login .panel2 {
     height: 300px;
-    background: #FF416C;
+    background: #ffffff;
     background: -webkit-linear-gradient(to right, #FF4749, #FF416C);
     background: linear-gradient(to right, #FF4749, #FF416C);
     background-repeat: no-repeat;

@@ -6,13 +6,14 @@
             Homepage
         </title>
     </head>
-    <body>
+    <body class="page-login">
         <header>
         <h1>Left Rising HR</h1>
         </header>
-        <div class="page-login">
-            <form id="page-login">
-                <input 
+        <div class="panel">
+            <p>Welcome back! Please login to continue.</p>
+            <form>
+                <input
                 type="text"
                 id="username"
                 name="username"
@@ -28,14 +29,25 @@
                 />
                 <button id="btnLogin" type="submit">Login</button>
             </form>
-            <form id="hlkRegister">
+        </div>
+        <div class="panel">
+            <p>Or sign up to create a new account</p>
+            <form>
                 <input
                 type="text"
                 id="email"
                 name="email"
-                placeholder="Sign Up Here"
-                required="false"
+                placeholder="Enter your username"
+                required="true"
                 />
+                <input
+                type="text"
+                id="pw"
+                name="pw"
+                placeholder="Enter new password"
+                required="true"
+                />
+                <button id="hlkRegister" type="submit">Sign Up</button>
             </form>
         </div>
     </body>
