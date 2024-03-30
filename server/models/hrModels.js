@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { array } = require('prop-types');
 
-const MONGO_URI = 'mongodb+srv://emazorra1:uPPfRIUIH2y2iuUi@solocluster.uipeezf.mongodb.net/?retryWrites=true&w=majority&appName=SoloCluster'
+const MONGO_URI = 'mongodb+srv://emazorra1:uPPfRIUIH2y2iuUi@solocluster.uipeezf.mongodb.net/'
 
 
 mongoose.connect(MONGO_URI, {
