@@ -23,4 +23,28 @@ hrController.addUser = async (req, res, next) => {
     }
 };
 
+hrController.updateUser = async (req, res, next) => {
+    const input  = req.body;
+
+    const { firstName, lastName } = req.params
+
+    try {
+        if (!input) {
+            return alert('Please enter information to update');
+        }
+        console.log({input});
+
+        
+        return next();
+
+
+    } catch (err) {
+        return next({
+            log: 'hr.Controller.updateUser',
+            message: { err: 'Could not update user'}
+        });
+    }
+};
+
+
 module.exports = hrController;

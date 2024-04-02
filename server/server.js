@@ -22,7 +22,11 @@ app.get('/', (req, res) => {
 });
 
 app.post('/add', hrController.addUser, (req, res) => {
-    res.send(res.locals.users)
+    res.status(200).send(res.locals.users)
+});
+
+app.patch('/update', hrController.updateUser, (req, res) => {
+    res.status(200).send(res.locals.users);
 })
 
 
