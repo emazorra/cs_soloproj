@@ -7,18 +7,18 @@ hrController.addUser = async (req, res, next) => {
 
     try {
         if (!firstName || !lastName || !address || !city || !state || !phoneNum || !email || !startDate) {
-            return res.redirect('/');
+            throw new Error('Make sure all required information is entered')
         }
 
         const user = await Employee.create({ firstName, lastName, address, city, state, phoneNum, email, startDate });
-
+        
         res.locals.users = user;
         return next();
 
     } catch (err) {
         return next({
             log: 'hr.Controller.addUser',
-            message: { err : 'Could not add user' }
+            message: { err : 'Could not add user', details: err.message }
         });
     }
 };
@@ -26,24 +26,34 @@ hrController.addUser = async (req, res, next) => {
 hrController.updateUser = async (req, res, next) => {
     const input  = req.body;
 
-    const { firstName, lastName } = req.params
+    const { firstName, lastName } = req.query
+    console.log('firstname lastname: ', firstName, lastName)
 
     try {
-        if (!input) {
-            return alert('Please enter information to update');
+        if (!input || Object.keys(input).length === 0) {
+            throw new Error('Please provide information to update');
         }
-        console.log({input});
 
+        console.log({input});
         
+        const user = await Employee.findOneAndUpdate({ firstName, lastName }, input, { new: true });
+        
+        if (!user) throw new Error('Record not found');
+
+        res.locals.users = user;
         return next();
 
 
     } catch (err) {
         return next({
             log: 'hr.Controller.updateUser',
-            message: { err: 'Could not update user'}
+            message: { err: 'Could not update user', details: err.message }
         });
     }
+};
+
+hrController.verifyUser = async (req, res, next) => {
+
 };
 
 
