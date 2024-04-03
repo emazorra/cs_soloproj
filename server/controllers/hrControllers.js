@@ -47,21 +47,14 @@ hrController.updateUser = async (req, res, next) => {
     } catch (err) {
         return next({
             log: 'hr.Controller.updateUser',
-<<<<<<< HEAD
-            message: { err: 'Could not update user'}
-=======
             message: { err: 'Could not update user', details: err.message }
->>>>>>> main
         });
     }
 };
 
-<<<<<<< HEAD
-=======
 hrController.verifyUser = async (req, res, next) => {
 
 };
 
->>>>>>> main
 
 module.exports = hrController;
