@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./styles.css";
 import Home from './components/home.jsx'
 
+
 function App () {
-    const [] = useState("");
+    // const [] = useState("");
 //what do i need as state for my stuff?
 
 // const url = 'http://localhost:3000';
@@ -13,7 +14,7 @@ function App () {
 //     .then((res) => console.log('res: ', res));
 
     return (
-        <div className = 'App'>
+        <div>
             <Home />
         </div>
     );
