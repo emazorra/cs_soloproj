@@ -10,7 +10,7 @@ const PORT = 8080;
 app.use(express.json());
 app.use(express.urlencoded());
 
-app.use('/client', express.static(path.join(__dirname, '../client')));
+app.use('/client', express.static(path.join(__dirname, '../client/build')));
 
 // need route handlers
 

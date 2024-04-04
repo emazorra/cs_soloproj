@@ -23,6 +23,9 @@ mongoose.connect(MONGO_URI, {
     phoneNum: { type: Number, required: true },
     email: { type: String, required: true },
     startDate: { type: String, required: true },
+    // front end doesn't have to serve all this hunty
+    username: { type: String, required: true },
+    password: { type: String, required: true }
     // wage: { type: Number, required: true },
     // employType: { type: String, required: true },
   })

@@ -1,17 +1,19 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 
 module.exports = {
     mode: 'development',
-    entry: './client/main.js',
+    entry: './frontend/app.jsx',
     output: {
         path: path.resolve(__dirname, 'build'),
+        publicPath: '/build/',
         filename: 'bundle.js',
     },
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
@@ -26,14 +28,17 @@ module.exports = {
             },
         ]
     },
-    plugins: [new HtmlWebpackPlugin({
-        title: 'development',
-        template: '/client/index.html'
-    })],
+    plugins: [
+        new HtmlWebpackPlugin({
+        title: 'Development',
+        template: './frontend/index.html'
+    }),
+        new NodePolyfillPlugin()
+],
     devServer: {
         static: {
-            directory: path.resolve(__dirname, 'build'),
-            publicPath: '/build'
+            directory: path.resolve(__dirname),
+            publicPath: '/'
         },
         // compress: true,
         // proxy: [
@@ -43,5 +48,12 @@ module.exports = {
         //     }
         // ],
         port: 8080,
+        // resolve: {
+        //     fallback: {
+        //         util: require.resolve("util/"),
+        //         crypto: require.resolve("crypto-browserify"),
+        //     }
+        // }
     }
+    
 };

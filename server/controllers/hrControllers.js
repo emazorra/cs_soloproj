@@ -46,14 +46,31 @@ hrController.updateUser = async (req, res, next) => {
 
     } catch (err) {
         return next({
-            log: 'hr.Controller.updateUser',
+            log: 'hrController.updateUser',
             message: { err: 'Could not update user', details: err.message }
         });
     }
 };
 
 hrController.verifyUser = async (req, res, next) => {
+    const { username, password } = req.body;
 
+    try {
+        if (!username) throw new Error('Please enter username');
+
+        if (!password) throw new Error('Please enter password');
+
+        const user = await Employee.findOne({ username, password });
+
+        if (user != null) return next();
+        else res.redirect('/');
+
+    } catch (err) {
+        return next({
+            log: 'hrController.verifyUser',
+            message: {err: 'Could not verify user', details: err.message }
+        });
+    }
 };
 
 
