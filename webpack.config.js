@@ -27,18 +27,21 @@ module.exports = {
         ]
     },
     plugins: [new HtmlWebpackPlugin({
-    title: 'development',
-    template: '/client/index.html'
-})],
-devServer: {
-    static: {
-        directory: path.resolve(__dirname, 'build'),
-        publicPath: '/build'
-    },
-    compress: true,
-    proxy: {
-        '/': 'http://localhost:3000'
-    },
-    port: 8080,
-}
+        title: 'development',
+        template: '/client/index.html'
+    })],
+    devServer: {
+        static: {
+            directory: path.resolve(__dirname, 'build'),
+            publicPath: '/build'
+        },
+        // compress: true,
+        // proxy: [
+        //     {
+        //         context: ['/'],
+        //         target: 'http://localhost:3000'
+        //     }
+        // ],
+        port: 8080,
+    }
 };
