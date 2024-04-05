@@ -1,6 +1,6 @@
 import React from 'react';
 import LoginForm from './login.jsx';
-// import SignupForm from './signup.jsx';
+import SignupForm from './signup.jsx';
 
 const HomePage = () => {
     return (
@@ -10,10 +10,10 @@ const HomePage = () => {
                 <h2>Log In</h2>
                 <LoginForm />
             </div>
-            {/* <div>
+            <div> 
                 <h2> Or Sign Up</h2>
-                {/* <SignupForm /> */}
-            {/* </div> */} 
+                <SignupForm/>
+            </div> 
         </div>
     )
 }

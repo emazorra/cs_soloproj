@@ -32,9 +32,35 @@ const LoginForm = () => {
             }
         } catch (err) {
             setError('Failed to log in. Please try again later.');
-            console.log('Login failed: ', error);
+            console.log('Login failed: ', err);
         }
     } 
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <div className="login_form">
+                <label htmlFor='user-email'>Email: </label>
+                <input
+                type="email"
+                id="username"
+                name="email"
+                placeholder="example@gmail.com"
+                onChange={handleUsernameChange}
+                />
+            </div>
+            <div className="login_form">
+                <label htmlFor='password'>Password: </label>
+                <input
+                type="password"
+                id="password"
+                name="password"
+                onChange={handlePasswordChange}
+                />
+            </div>
+            <button className="login_btn">Login</button>
+        </form>
+    )
+
 };
 
 export default LoginForm;

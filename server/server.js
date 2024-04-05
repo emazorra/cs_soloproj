@@ -17,9 +17,13 @@ app.use('/client', express.static(path.join(__dirname, '../client/build')));
 
 // routers for specific endpoints
 
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client/index.html'))
 });
+
+app.post('/login', hrController.verifyUser, (req, res) => {
+    res.status(200).send(res.locals.users)
+})
 
 app.post('/add', hrController.addUser, (req, res) => {
     res.status(200).send(res.locals.users);
