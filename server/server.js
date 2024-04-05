@@ -5,7 +5,7 @@ const path = require('path');
 const hrController = require('../server/controllers/hrControllers.js');
 // server/controllers/hrControllers.js
 
-const PORT = 8080;
+const PORT = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded());
@@ -50,7 +50,7 @@ app.use((err, req, res, next) => {
 })
 
 
-app.listen(8080, ()=> {
+app.listen(PORT, ()=> {
     console.log(`Server listening on port: ${PORT}...`)
 });
 

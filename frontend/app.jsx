@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./styles.css";
 import Home from "./components/home.jsx";
 import LoginForm from "./components/login.jsx";
@@ -16,14 +15,9 @@ function App() {
 
   return (
     <React.StrictMode>
-      <Router>
-        <div>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/login" component={LoginForm} />
-          </Switch>
-        </div>
-      </Router>
+      <div>
+            <Home/>
+      </div>
     </React.StrictMode>
   );
 }

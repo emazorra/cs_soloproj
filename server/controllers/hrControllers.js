@@ -53,6 +53,7 @@ hrController.updateUser = async (req, res, next) => {
 };
 
 hrController.verifyUser = async (req, res, next) => {
+    console.log('verifyUser started');
     const { username, password } = req.body;
 
     try {

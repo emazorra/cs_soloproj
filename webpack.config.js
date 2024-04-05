@@ -1,5 +1,5 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 
 module.exports = {
@@ -28,32 +28,25 @@ module.exports = {
             },
         ]
     },
-    plugins: [
-        new HtmlWebpackPlugin({
+    plugins: [new HtmlWebPackPlugin({
         title: 'Development',
         template: './client/index.html'
     }),
-        new NodePolyfillPlugin()
+//         new NodePolyfillPlugin()
 ],
     devServer: {
         static: {
             directory: path.resolve(__dirname, 'build'),
             publicPath: '/'
         },
-        // compress: true,
-        // proxy: [
-        //     {
-        //         context: ['/'],
-        //         target: 'http://localhost:3000'
-        //     }
-        // ],
-        port: 8080,
-        // resolve: {
-        //     fallback: {
-        //         util: require.resolve("util/"),
-        //         crypto: require.resolve("crypto-browserify"),
-        //     }
-        // }
+        compress: true,
+        proxy: [
+            {
+                context: ['/'],
+                target: 'http://localhost:3000'
+            }
+        ],
+        port: 8081,
     }
     
 };

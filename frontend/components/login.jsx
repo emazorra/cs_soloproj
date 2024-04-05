@@ -17,6 +17,9 @@ const LoginForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        console.log({username})
+        console.log({password})
+
         try {
             const response = await fetch('/login', {
                 method: 'POST',
@@ -57,7 +60,7 @@ const LoginForm = () => {
                 onChange={handlePasswordChange}
                 />
             </div>
-            <button className="login_btn">Login</button>
+            <button className="login_btn" type="submit">Login</button>
         </form>
     )
 
