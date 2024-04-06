@@ -33,13 +33,14 @@ const handleSubmit = async (e) => {
 
     } catch (err) {
         setError('Failed to create account. Please try again later')
-        console.log('Sign Up failed: ', err);
+        console.log('Sign Up failed: ', error);
     }
 }
 
   return (
     <form onSubmit={handleSubmit}>
         <div className="signup_form">
+            <h2>Sign up</h2>
         <label htmlFor='user-email'>Email: </label>
         <input
         type="email"

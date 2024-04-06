@@ -1,12 +1,82 @@
-* {
-    box-sizing: border-box;
-    font-family: 'Ubuntu Light', 'Century Gothic', sans-serif;
-    margin: 0;
-    padding: 0;
-    color: #2d22d0;
-    background-color: #ffffff;
+html {
+    height: 100%
 }
 
 body {
-    padding-top:10px;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: linear-gradient(#394c6e, #111eca)
+}
+
+.homepage h1 {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr;
+    column-gap: 5px;
+}
+
+.logo {
+   position: fixed;
+   top: 10px;
+   right: 10px;
+   max-width: 30%;
+   max-height: 30%;
+
+}
+
+.login_form .user_email label {
+    position: relatve;
+    color: white;
+}
+
+.l_user-email input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+}
+
+.login_form {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    color:#ebecf5;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    margin-top: 40px;
+    letter-spacing: 4px;
+}
+
+.profile {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    padding: 40px;
+    transform: translate(-50%, -50%);
+    background: rgpa(0, 0, 0, .5);
+    box-sizing: border-box;
+    box-shadow: 1 15px 25px rgba(0,0,0,.6);
+    border-radius: 10px;
+}
+
+.profile h3 {
+    color:aqua;
+}
+
+.profile p {
+    color: white;
+}
+
+.logo {
+
 }
