@@ -12,25 +12,22 @@ app.use(express.urlencoded());
 
 app.use('/client', express.static(path.join(__dirname, '../client/build')));
 
-// need route handlers
-
-
-// routers for specific endpoints
+// look into body parser
 
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client/index.html'))
 });
 
 app.post('/login', hrController.verifyUser, (req, res) => {
-    res.status(200).send(res.locals.users)
+    res.status(200).json(res.locals.users)
 })
 
 app.post('/add', hrController.addUser, (req, res) => {
-    res.status(200).send(res.locals.users);
+    res.status(200).json(res.locals.users);
 });
 
 app.patch('/update', hrController.updateUser, (req, res) => {
-    res.status(200).send(res.locals.users);
+    res.status(200).json(res.locals.users);
 })
 
 

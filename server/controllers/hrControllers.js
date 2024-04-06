@@ -62,6 +62,8 @@ hrController.verifyUser = async (req, res, next) => {
         if (!password) throw new Error('Please enter password');
 
         const user = await Employee.findOne({ username, password });
+        console.log('user from verify: ', user)
+        res.locals.users = user;
 
         if (user != null) return next();
         else res.redirect('/');

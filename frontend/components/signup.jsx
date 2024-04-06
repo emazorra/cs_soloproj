@@ -58,7 +58,7 @@ const handleSubmit = async (e) => {
             onChange={handlePasswordChange}
             />
         </div>
-        <button className="signup_btn">Sign Up</button>
+        <button className="signup_btn" type="submit">Sign Up</button>
     </form>
   )
 
