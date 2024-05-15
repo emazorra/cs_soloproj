@@ -1,6 +1,58 @@
 const Employee = require('../models/hrModels');
 const path = require('path');
+const jwt = require('jsonwebtoken');
+const bycrypt = require('bcryptjs');
+
 const hrController = {};
+
+require('dotenv').config();
+
+const secretKey = process.env.JWT_SECRET;
+
+function generateToken (user) {
+
+    const payload = {
+        username: user.username,
+        password: user.password,
+    };
+    const token = jwt.sign(payload, secretKey, { expiresIn: '1h' });
+
+    return token;
+}
+
+hrController.hashPassword = async (req, res, next) => {
+
+    try {
+        const { password } = req.body;
+
+        const saltRounds = 10;
+        const hashedPassword = await bycrypt.hash(password, saltRounds);
+
+        req.locals.password = hashedPassword;
+
+        return next();
+
+    } catch (err) {
+        return next({
+            log: 'hr.Controller.hashPassword',
+            message: { err : 'Could not hash password', details: err.message }
+        });
+    }
+}
+
+hrController.registerUser = async (req, res, next) => {
+
+    const { username, password } = req.body;
+
+    try {
+
+    } catch (err) {
+        return next({
+            log: 'hr.Controller.hashPassword',
+            message: { err : 'Could not hash password', details: err.message }
+        });
+    }
+}
 
 hrController.addUser = async (req, res, next) => {
     const { firstName, lastName, address, city, state, phoneNum, email, startDate } = req.body;
