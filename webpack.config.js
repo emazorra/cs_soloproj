@@ -57,7 +57,7 @@ module.exports = {
                 target: 'http://localhost:3000'
             }
         ],
-        port: 8081,
+        port: 8080,
     }
     
 };

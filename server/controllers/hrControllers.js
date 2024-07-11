@@ -1,8 +1,11 @@
-const Employee = require('../models/hrModels');
+const { Employee, EmployeeInfo, LoginInfo, Role } = require('../models/hrModels');
 const path = require('path');
 const jwt = require('jsonwebtoken');
-const bycrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 
+//for next time: need to change all the models in the doc
+//finish register user, pulling hashpassword from the locals
+//
 const hrController = {};
 
 require('dotenv').config();
@@ -26,7 +29,7 @@ hrController.hashPassword = async (req, res, next) => {
         const { password } = req.body;
 
         const saltRounds = 10;
-        const hashedPassword = await bycrypt.hash(password, saltRounds);
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
 
         req.locals.password = hashedPassword;
 
@@ -48,8 +51,8 @@ hrController.registerUser = async (req, res, next) => {
 
     } catch (err) {
         return next({
-            log: 'hr.Controller.hashPassword',
-            message: { err : 'Could not hash password', details: err.message }
+            log: 'hr.Controller.registerUser',
+            message: { err : 'Could not register user', details: err.message }
         });
     }
 }

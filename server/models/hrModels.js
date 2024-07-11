@@ -14,7 +14,7 @@ mongoose.connect(MONGO_URI, {
   
   const Schema = mongoose.Schema;
 
-  const employeeSchema = new Schema({
+  const employeeInfoSchema = new Schema({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     address: { type: String, required: true },
@@ -24,12 +24,48 @@ mongoose.connect(MONGO_URI, {
     email: { type: String, required: true },
     startDate: { type: String, required: true },
     // front end doesn't have to serve all this hunty
-    username: { type: String, required: true },
+    wage: { type: Number, required: true },
+    employType: { type: String, required: true },
+  });
+
+  const EmployeeInfo = mongoose.model('EmployeeInfo', employeeInfoSchema);
+
+  const loginInfoSchema = new Schema({
+    username: { type: String, required: true, unique: true },
     password: { type: String, required: true }
-    // wage: { type: Number, required: true },
-    // employType: { type: String, required: true },
+  });
+
+  const LoginInfo = mongoose.model('LoginInfo', loginInfoSchema);
+
+  const roleSchema = new Schema({
+    role: {
+      type: String,
+      enum: ['admin', 'user'],
+      required: true,
+      default: 'user'
+    }
+  });
+
+  const Role = mongoose.model('Role', roleSchema);
+
+  const employeeSchema = new Schema({
+    employeeInfo: { 
+      type: Schema.Types.ObjectId,
+      ref: 'EmployeeInfo',
+      required: true
+    },
+    loginInfo: {
+      type: Schema.Types.ObjectId,
+      ref: 'LoginInfo',
+      required: true
+    },
+    role: {
+      type: Schema.Types.ObjectId,
+      ref: 'Role',
+      requierd: true
+    }
   })
 
-  const Employee = mongoose.model('employee', employeeSchema);
+  const Employee = mongoose.model('Employee', employeeSchema);
 
-  module.exports = Employee;
+  module.exports = { Employee, EmployeeInfo, LoginInfo, Role };
