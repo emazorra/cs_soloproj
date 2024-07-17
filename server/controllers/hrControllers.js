@@ -45,9 +45,11 @@ hrController.hashPassword = async (req, res, next) => {
 
 hrController.registerUser = async (req, res, next) => {
 
-    const { username, password } = req.body;
+    const { username } = req.body;
+    const { password } = req.locals.password;
 
     try {
+        const newLogin = await LoginInfo.create({ username, password });
 
     } catch (err) {
         return next({

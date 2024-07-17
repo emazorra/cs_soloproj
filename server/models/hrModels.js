@@ -62,7 +62,7 @@ mongoose.connect(MONGO_URI, {
     role: {
       type: Schema.Types.ObjectId,
       ref: 'Role',
-      requierd: true
+      required: true
     }
   })
 
