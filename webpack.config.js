@@ -7,7 +7,7 @@ module.exports = {
     entry: './frontend/index.js',
     output: {
         path: path.resolve(__dirname, 'build'),
-        publicPath: '/build/',
+        publicPath: '/',
         filename: 'bundle.js',
     },
     module: {
@@ -41,9 +41,10 @@ module.exports = {
     },
     plugins: [new HtmlWebPackPlugin({
         title: 'Development',
-        template: './client/index.html'
+        template: 'client/index.html'
+        
     }),
-//         new NodePolyfillPlugin()
+    // new NodePolyfillPlugin()
 ],
     devServer: {
         static: {
@@ -51,12 +52,12 @@ module.exports = {
             publicPath: '/'
         },
         compress: true,
-        proxy: [
-            {
-                context: ['/'],
-                target: 'http://localhost:3000'
+        proxy: {
+            '/api': {
+                target: 'http://localhost:3000',
+                changeOrigin: true,
             }
-        ],
+        },
         port: 8080,
     }
     
