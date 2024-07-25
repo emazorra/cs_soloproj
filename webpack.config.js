@@ -44,20 +44,19 @@ module.exports = {
         template: 'client/index.html'
         
     }),
-    // new NodePolyfillPlugin()
+    new NodePolyfillPlugin()
 ],
     devServer: {
-        static: {
-            directory: path.resolve(__dirname, 'build'),
-            publicPath: '/'
-        },
+        static: path.resolve(__dirname, 'build'),
         compress: true,
-        proxy: {
+        proxy: [
+        {
             '/api': {
                 target: 'http://localhost:3000',
                 changeOrigin: true,
             }
         },
+    ],
         port: 8080,
     }
     
