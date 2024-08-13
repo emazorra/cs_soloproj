@@ -46,6 +46,8 @@ mongoose.connect(MONGO_URI, {
     }
   });
 
+  //need docs schema
+
   const Role = mongoose.model('Role', roleSchema);
 
   const employeeSchema = new Schema({
