@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { array } = require('prop-types');
 
 const MONGO_URI = 'mongodb+srv://emazorra1:uPPfRIUIH2y2iuUi@solocluster.uipeezf.mongodb.net/'
+//future uri needs to go in .env
 
 
 mongoose.connect(MONGO_URI, {
@@ -26,6 +27,7 @@ mongoose.connect(MONGO_URI, {
     // front end doesn't have to serve all this hunty
     wage: { type: Number, required: true },
     employType: { type: String, required: true },
+    // role: 
   });
 
   const EmployeeInfo = mongoose.model('EmployeeInfo', employeeInfoSchema);
@@ -47,6 +49,11 @@ mongoose.connect(MONGO_URI, {
   });
 
   const Role = mongoose.model('Role', roleSchema);
+
+  //use relational keys instead 
+  //have internal ID that be included to look people up
+  //have reference to other things in each other
+  //
 
   const employeeSchema = new Schema({
     employeeInfo: { 

@@ -24,6 +24,7 @@
     "mongoose": "^8.2.4",
     "node": "^18.20.0",
     "node-polyfill-webpack-plugin": "^3.0.0",
+    "only": "^0.0.2",
     "path": "^0.12.7",
     "react-dom": "^18.2.0",
     "react-media": "^1.10.0",

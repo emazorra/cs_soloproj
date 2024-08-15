@@ -18,7 +18,7 @@ app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client/index.html'))
 });
 
-app.post('/login', hrController.verifyUser, (req, res) => {
+app.post('/login', hrController.armorEVerify, (req, res) => {
     res.status(200).json(res.locals.users)
 })
 

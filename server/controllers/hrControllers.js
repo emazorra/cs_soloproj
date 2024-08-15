@@ -2,6 +2,7 @@ const { Employee, EmployeeInfo, LoginInfo, Role } = require('../models/hrModels'
 const path = require('path');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const armorE = require('armore-node')
 
 //for next time: need to change all the models in the doc
 //finish register user, pulling hashpassword from the locals
@@ -9,6 +10,30 @@ const bcrypt = require('bcrypt');
 const hrController = {};
 
 require('dotenv').config();
+
+console.log('verify token', armorE.verifyToken)
+
+console.log('armor middleware', armorE.getVerifyUserMiddleware)
+
+const verify = async (username, password) => {
+    console.log('in the armor e verify function')
+    console.log({username});
+    console.log({password});
+    await Employee.findOne({ username, password })
+
+    if (username != null) return username;
+}
+
+armorE.setOptions({
+    verify,
+    jwtSecret: 'rupaul'
+});
+
+//how to use secret key in real world
+//look up how aws/cloud does it
+
+hrController.armorEVerify = armorE.getVerifyUserMiddleware();
+console.log('veriy', hrController.armorEVerify)
 
 const secretKey = process.env.JWT_SECRET;
 
@@ -42,11 +67,11 @@ hrController.hashPassword = async (req, res, next) => {
         });
     }
 }
-
+//hide stuff that shouldn't be exposed
 hrController.registerUser = async (req, res, next) => {
 
     const { username } = req.body;
-    const { password } = req.locals.password;
+    const { password } = res.locals.password;
 
     try {
         const newLogin = await LoginInfo.create({ username, password });
@@ -61,7 +86,7 @@ hrController.registerUser = async (req, res, next) => {
 
 hrController.addUser = async (req, res, next) => {
     const { firstName, lastName, address, city, state, phoneNum, email, startDate } = req.body;
-
+//add type validation
     try {
         if (!firstName || !lastName || !address || !city || !state || !phoneNum || !email || !startDate) {
             throw new Error('Make sure all required information is entered')
@@ -108,7 +133,7 @@ hrController.updateUser = async (req, res, next) => {
         });
     }
 };
-
+/*
 hrController.verifyUser = async (req, res, next) => {
     console.log('verifyUser started');
     const { username, password } = req.body;
@@ -132,6 +157,12 @@ hrController.verifyUser = async (req, res, next) => {
         });
     }
 };
+*/
+
+
+
+
+
 
 
 module.exports = hrController;
