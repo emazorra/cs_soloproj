@@ -59,7 +59,8 @@ mongoose.connect(MONGO_URI, {
     loginInfo: {
       type: Schema.Types.ObjectId,
       ref: 'LoginInfo',
-      required: true
+      required: false,
+      default: null
     },
     role: {
       type: Schema.Types.ObjectId,

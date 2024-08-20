@@ -46,10 +46,21 @@ hrController.hashPassword = async (req, res, next) => {
 hrController.registerUser = async (req, res, next) => {
 
     const { username } = req.body;
-    const { password } = req.locals.password;
+    const  password  = req.locals.password;
 
     try {
         const newLogin = await LoginInfo.create({ username, password });
+        
+        const employee = await Employee.findOneAndUpdate(
+            { 'employeeInfo.email': email },
+            { loginInfo: newLogin._id },
+            { new: true }
+        )
+
+        if (!employee) throw new Error('Employee not found');
+
+        res.locals.user = employee;
+        return next();
 
     } catch (err) {
         return next({
@@ -59,17 +70,27 @@ hrController.registerUser = async (req, res, next) => {
     }
 }
 
-hrController.addUser = async (req, res, next) => {
-    const { firstName, lastName, address, city, state, phoneNum, email, startDate } = req.body;
+hrController.addEmployeeInfo = async (req, res, next) => {
+
+
+    const { firstName, lastName, address, city, state, phoneNum, email, startDate, wage, employType } = req.body;
 
     try {
-        if (!firstName || !lastName || !address || !city || !state || !phoneNum || !email || !startDate) {
+        if (!firstName || !lastName || !address || !city || !state || !phoneNum || !email || !startDate || !wage || !employType  ) {
             throw new Error('Make sure all required information is entered')
         }
 
-        const user = await Employee.create({ firstName, lastName, address, city, state, phoneNum, email, startDate });
+        const employeeInfo = await EmployeeInfo.create({ firstName, lastName, address, city, state, phoneNum, email, startDate, wage, employType });
         
-        res.locals.users = user;
+        const role = await Role.create({ role: 'user' })
+        
+        const employee = await Employee.create({
+            employeeInfo: employeeInfo._id,
+            role: role._id,
+            loginInfo: null
+        })
+        
+        res.locals.employeeID = employee._id;
         return next();
 
     } catch (err) {
@@ -109,7 +130,7 @@ hrController.updateUser = async (req, res, next) => {
     }
 };
 
-hrController.verifyUser = async (req, res, next) => {
+hrController.login = async (req, res, next) => {
     console.log('verifyUser started');
     const { username, password } = req.body;
 
@@ -118,8 +139,15 @@ hrController.verifyUser = async (req, res, next) => {
 
         if (!password) throw new Error('Please enter password');
 
-        const user = await Employee.findOne({ username, password });
-        // console.log('user from verify: ', user)
+        const loginInfo = await LoginInfo.findOne({ username });
+        if (!loginInfo) throw new Error('User not found');
+
+        const isMatch = await bcrypt.compare(password, loginInfo.password);
+        if (!isMatch) throw new Error('Incorrect password');
+
+        const user = await Employee.findOne({ loginInfo: loginInfo._id }).populate('role');
+        console.log({ user });
+
         res.locals.users = user;
 
         if (user != null) return next();

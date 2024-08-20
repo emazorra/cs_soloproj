@@ -22,7 +22,7 @@ app.post('/login', hrController.verifyUser, (req, res) => {
     res.status(200).json(res.locals.users)
 })
 
-app.post('/add', hrController.addUser, (req, res) => {
+app.post('/add', hrController.addEmployeeInfo, (req, res) => {
     res.status(200).json(res.locals.users);
 });
 
