@@ -18,8 +18,8 @@ app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client/index.html'))
 });
 
-app.post('/login', hrController.verifyUser, (req, res) => {
-    res.status(200).json(res.locals.users)
+app.post('/login', hrController.login, (req, res) => {
+    res.status(200).json(res.locals.users);
 })
 
 app.post('/add', hrController.addEmployeeInfo, (req, res) => {

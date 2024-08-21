@@ -4,7 +4,7 @@ const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 
 module.exports = {
     mode: 'development',
-    entry: './frontend/index.js',
+    entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'build'),
         publicPath: '/',
@@ -41,7 +41,7 @@ module.exports = {
     },
     plugins: [new HtmlWebPackPlugin({
         title: 'Development',
-        template: 'client/index.html'
+        template: 'public/index.html'
         
     }),
     new NodePolyfillPlugin()

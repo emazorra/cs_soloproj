@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 const { array } = require('prop-types');
+require('dotenv').config();
 
-const MONGO_URI = 'mongodb+srv://emazorra1:uPPfRIUIH2y2iuUi@solocluster.uipeezf.mongodb.net/'
+const myURI = process.env.MYURI;
+const MONGO_URI = myURI;
 
 
 mongoose.connect(MONGO_URI, {
-    // useNewUrlParser: true,
-    // useUnifiedTopology: true,
     dbName: 'employees'
 })
   .then(() => console.log('Connected to Mongo DB.'))
