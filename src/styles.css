@@ -6,37 +6,28 @@ html {
     height: 100%
 }
 
-body {
+/* body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
     background: linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
             linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
             linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
-}
+} */
 
-.homepage h1 {
+/* .homepage h1 {
     display: grid;
     align-items: center;
     grid-template-columns: 1fr;
     column-gap: 5px;
-}
+} */
 
-.logo {
-   position: fixed;
-   top: 10px;
-   right: 10px;
-   max-width: 30%;
-   max-height: 30%;
-
-}
-
-.login_form .user_email label {
+/* .login_form .user_email label {
     position: relatve;
     color: white;
-}
+} */
 
-.l_user-email input {
+/* .l_user-email input {
     width: 100%;
     padding: 10px 0;
     font-size: 16px;
@@ -46,9 +37,9 @@ body {
     border-bottom: 1px solid #fff;
     outline: none;
     background: transparent;
-}
+} */
 
-.login_form {
+/* .login_form {
     position: relative;
     display: inline-block;
     padding: 40px 20px;
@@ -60,9 +51,9 @@ body {
     transition: .5s;
     margin-top: 40px;
     letter-spacing: 4px;
-}
+} */
 
-.login_btn {
+/* .login_btn {
     cursor: pointer;
     outline: 0;
     color: #fff;
@@ -83,7 +74,7 @@ body {
         border-color: #0a58ca;
     }
 
-}
+} */
 
 .profile {
     position: absolute;
