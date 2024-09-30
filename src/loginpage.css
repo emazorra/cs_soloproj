@@ -12,16 +12,12 @@
     background-color: #f4f6fc;
 }
 
-.logo-side {
-    background-color: #0000ff;
-    color: #fff;
+.logo {
+    background-color: #2931ff;
+    color: #2931ff;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.logo {
-    width: 50%
 }
 
 @media (max-width: 768px) {

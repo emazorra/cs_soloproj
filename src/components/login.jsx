@@ -11,82 +11,39 @@ import FormControl from '@mui/material/FormControl';
 import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
+import Grid from '@mui/material/Grid'; // Import Grid for layout
 import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
 import '../loginpage.css';
 import ForgotPassword from '../ForgotPassword.js';
-import { GoogleIcon, SitemarkIcon } from '../CustomIcons.js';
+import { GoogleIcon } from '../CustomIcons.js';
 import AppTheme from '../shared-theme/AppTheme';
 import ColorModeSelect from '../shared-theme/ColorModeSelect';
-import logo from '../../docs/assets/images/Social Media Art 2logos.png'
-
+import logo from '../../docs/assets/images/Social Media Art 2logos.png';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  alignSelf: 'center',
   width: '100%',
   padding: theme.spacing(4),
-  gap: theme.spacing(2),
   margin: 'auto',
+  boxShadow: 'hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px',
   [theme.breakpoints.up('sm')]: {
     maxWidth: '450px',
   },
-  boxShadow:
-    'hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px',
-  ...theme.applyStyles('dark', {
-    boxShadow:
-      'hsla(220, 30%, 5%, 0.5) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.08) 0px 15px 35px -5px',
-  }),
 }));
-
-const SignInContainer = styled(Box)(({ theme }) => ({
-  padding: 20,
-  marginTop: '10vh',
-  '&::before': {
-    content: '""',
-    display: 'block',
-    position: 'absolute',
-    zIndex: -1,
-    inset: 0,
-    backgroundImage: 
-      'radial-gradient(ellipse at 50% 50%, hsl(210, 100%, 97%), hsl(0, 0%, 100%))',
-    backgroundRepeat: 'no-repeat',
-    ...theme.applyStyles('dark', {
-      backgroundImage:
-        'radial-gradient(at 50% 50%, hsla(210, 100%, 16%, 0.5), hsl(220, 30%, 5%))',
-    }),
-  },
-}));
-
-
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const [user, setUser] = useState(null);
-  const [emailError, setEmailError] = useState(false);
-  const [emailErrorMessage, setEmailErrorMessage] = useState('');
-  const [passwordError, setPasswordError] = useState(false);
-  const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
   const [open, setOpen] = useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleClickOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log({ username });
-    console.log({ password });
-
     try {
       const response = await fetch("/login", {
         method: "POST",
@@ -96,152 +53,86 @@ const LoginForm = () => {
         body: JSON.stringify({ username, password }),
       });
       if (response.ok) {
-        // create new component for correct information
-        // serve that info once login is successful
-        // render profile component
         const userData = await response.json();
         setUser(userData);
-        // console.log("user: ", user);
-
-        // how to pass users information to profile component
-        console.log("Login successful");
-      } 
-
+      }
     } catch (err) {
-      setError("Failed to log in. Please try again later.");
-      console.log("Login failed: ", error);
+      console.log("Login failed:", err);
     }
   };
-
-  const validateInputs = () => {
-    const email = document.getElementById('email');
-    const password = document.getElementById('password');
-
-    let isValid = true;
-
-    if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
-      setEmailError(true);
-      setEmailErrorMessage('Please enter a valid email address.');
-      isValid = false;
-    } else {
-      setEmailError(false);
-      setEmailErrorMessage('');
-    }
-
-    if (!password.value || password.value.length < 6) {
-      setPasswordError(true);
-      setPasswordErrorMessage('Password must be at least 6 characters long.');
-      isValid = false;
-    } else {
-      setPasswordError(false);
-      setPasswordErrorMessage('');
-    }
-
-    return isValid;
-  };
-
 
   return (
-    (<AppTheme>
+    <AppTheme>
       <CssBaseline enableColorScheme />
-      {!user ? (
-      <SignInContainer direction="column" justifyContent="space-between" className="login-form">
-        <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
-        <Card variant="outlined">
-          {/* <SitemarkIcon /> */}
-          <Typography
-            component="h1"
-            variant="h4"
-            sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}
-          >
-            Sign in
-          </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              width: '100%',
-              gap: 2,
-            }}
-          >
-            <FormControl>
-              <FormLabel htmlFor="email">Email</FormLabel>
-              <TextField
-                error={emailError}
-                helperText={emailErrorMessage}
-                id="email"
-                type="email"
-                name="email"
-                placeholder="your@email.com"
-                autoComplete="email"
-                autoFocus
-                required
-                fullWidth
-                variant="outlined"
-                color={emailError ? 'error' : 'primary'}
-                sx={{ ariaLabel: 'email' }}
-              />
-            </FormControl>
-            <FormControl>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                <FormLabel htmlFor="password">Password</FormLabel>
-                <Link
-                  component="button"
-                  onClick={handleClickOpen}
-                  variant="body2"
-                  sx={{ alignSelf: 'baseline' }}
-                >
-                  Forgot your password?
-                </Link>
-              </Box>
-              <TextField
-                error={passwordError}
-                helperText={passwordErrorMessage}
-                name="password"
-                placeholder="••••••"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                autoFocus
-                required
-                fullWidth
-                variant="outlined"
-                color={passwordError ? 'error' : 'primary'}
-              />
-            </FormControl>
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <ForgotPassword open={open} handleClose={handleClose} />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              onClick={validateInputs}
-            >
+      <Grid container spacing={2} justifyContent="center" alignItems="center" style={{ minHeight: '100vh', padding: 20 }}>
+        
+        {/* Logo section */}
+        <Grid item xs={12} md={6} style={{ textAlign: 'center' }}>
+          <img src={logo} alt="Left Rising Logo" className="logo" style={{ maxWidth: '80%', height: 'auto' }} />
+        </Grid>
+
+        {/* Sign-in form section */}
+        <Grid item xs={12} md={6}>
+          <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
+          <Card variant="outlined">
+            <Typography component="h1" variant="h4" sx={{ fontSize: 'clamp(2rem, 10vw, 2.15rem)', textAlign: 'center' }}>
               Sign in
-            </Button>
-            <Typography sx={{ textAlign: 'center' }}>
-              Don&apos;t have an account?{' '}
-              <span>
-                <Link
-                  href="/material-ui/getting-started/templates/sign-in/"
-                  variant="body2"
-                  sx={{ alignSelf: 'center' }}
-                >
+            </Typography>
+            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              <FormControl>
+                <FormLabel htmlFor="email">Email</FormLabel>
+                <TextField
+                  id="email"
+                  type="email"
+                  name="email"
+                  placeholder="your@email.com"
+                  autoComplete="email"
+                  required
+                  fullWidth
+                  variant="outlined"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </FormControl>
+
+              <FormControl>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <FormLabel htmlFor="password">Password</FormLabel>
+                  <Link component="button" onClick={handleClickOpen} variant="body2">
+                    Forgot your password?
+                  </Link>
+                </Box>
+                <TextField
+                  id="password"
+                  type="password"
+                  name="password"
+                  placeholder="••••••"
+                  required
+                  fullWidth
+                  variant="outlined"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </FormControl>
+
+              <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
+              <ForgotPassword open={open} handleClose={handleClose} />
+              <Button type="submit" fullWidth variant="contained">
+                Sign in
+              </Button>
+
+              <Typography sx={{ textAlign: 'center' }}>
+                Don&apos;t have an account?{' '}
+                <Link href="#" variant="body2">
                   Sign up
                 </Link>
-              </span>
-            </Typography>
-          </Box>
-          <Divider>or</Divider>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              </Typography>
+            </Box>
+
+            <Divider>or</Divider>
+
             <Button
-              type="submit"
+              type="button"
               fullWidth
               variant="outlined"
               onClick={() => alert('Sign in with Google')}
@@ -249,20 +140,12 @@ const LoginForm = () => {
             >
               Sign in with Google
             </Button>
-          </Box>
-        </Card>
-      </SignInContainer>
-       ) : (
-        <Profile {...user} />
-      )}
-
-    <div className="logo-side">
-      <img src={logo} alt="Left Rising Logo" className="logo" />
-    </div>
+          </Card>
+        </Grid>
+      </Grid>
+      {user && <Profile {...user} />} {/* Render profile if user exists */}
     </AppTheme>
-
-  ));
+  );
 };
-
 
 export default LoginForm;
